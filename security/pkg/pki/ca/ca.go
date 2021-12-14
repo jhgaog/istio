@@ -359,6 +359,8 @@ func (ca *IstioCA) minTTL(defaultCertTTL time.Duration) (time.Duration, error) {
 }
 
 func (ca *IstioCA) sign(csrPEM []byte, subjectIDs []string, requestedLifetime time.Duration, checkLifetime, forCA bool) ([]byte, error) {
+	log.Info("csr is:===", string(csrPEM), "===")
+
 	signingCert, signingKey, _, _ := ca.keyCertBundle.GetAll()
 	if signingCert == nil {
 		return nil, caerror.NewError(caerror.CANotReady, fmt.Errorf("Istio CA is not ready")) // nolint
